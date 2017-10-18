@@ -1,4 +1,5 @@
 from helpers.matrix_handler import MatrixHandler
+from helpers.page_rank import PageRank
 
 
 def run():
@@ -7,13 +8,10 @@ def run():
 	"""
 
 	# uncomment this line if adjacency list is to be regenerated
-	MatrixHandler.generate_adjaceny_lists()
+	# MatrixHandler.generate_adjaceny_lists()
 
-	adjacency_list_outgoing = MatrixHandler.load_adjacency_list_outgoing()
-	adjacency_list_incoming = MatrixHandler.load_adjacency_list_incoming()
+	PageRank.calculate_PageRank()
 
-	print(adjacency_list_outgoing['2'])
-	print(adjacency_list_incoming['2'])
 
 if __name__ == '__main__':
 	run()
