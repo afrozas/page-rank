@@ -16,14 +16,14 @@ class PageRank:
 		pass
 
 
-	def calculate_PageRank():
+	def calculate_PageRank(self):
 		"""
 		provides PageRank core implementation
 		"""
 		N = 281904
 		page_rank_t = []
 		page_rank_t1 = []
-		iteration = 100
+		iteration = 10
 		itr = 0
 		beta = 0.85
 
@@ -34,11 +34,12 @@ class PageRank:
 		adjacency_list_outgoing = MatrixHandler.load_adjacency_list_outgoing()
 		adjacency_list_incoming = MatrixHandler.load_adjacency_list_incoming()
 
-		print("Page Rank for nodes numbered 1 through 1000")
+		# run power method for 'iteration' times
 		while itr <= iteration:
-			# run power method for 'iteration' times
-			print("iteration: ", str(itr))
-			print(page_rank_t[1:1001])
+
+			# uncomment for writing the results to file/console
+			# print("iteration: ", str(itr))
+			# print(page_rank_t[1:1001])
 
 			for page in range(1, 281904):
 				pr_from_each_page = 0
@@ -52,6 +53,8 @@ class PageRank:
 			page_rank_t = page_rank_t1
 			itr = itr + 1
 
+		return page_rank_t
+
 
 	def allow_Teleports():
 		"""
@@ -59,3 +62,11 @@ class PageRank:
 		"""
 		pass
 		
+
+	def get_top_page_ranks(self, n=100):
+		"""
+		@param n : top n page rank nodes to be returned
+		:returns list of top n page ranks 
+		"""
+		page_ranks = self.calculate_PageRank()
+		return sorted(range(len(page_ranks)), key=lambda k: page_ranks[k])[1:n]
