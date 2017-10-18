@@ -23,7 +23,7 @@ class PageRank:
 		N = 281904
 		page_rank_t = []
 		page_rank_t1 = []
-		iteration = 10
+		iteration = 100
 		itr = 0
 		beta = 0.85
 
@@ -34,7 +34,7 @@ class PageRank:
 		adjacency_list_outgoing = MatrixHandler.load_adjacency_list_outgoing()
 		adjacency_list_incoming = MatrixHandler.load_adjacency_list_incoming()
 
-		print("Page Rank for nodes numbered 1 through 1001")
+		print("Page Rank for nodes numbered 1 through 1000")
 		while itr <= iteration:
 			# run power method for 'iteration' times
 			print("iteration: ", str(itr))
