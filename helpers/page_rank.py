@@ -16,20 +16,25 @@ class PageRank:
 		pass
 
 
-	def calculate_PageRank(self):
+	def calculate_PageRank():
 		"""
 		provides PageRank core implementation
 		"""
-		N = 281904
+		N = 281903
 		page_rank_t = []
 		page_rank_t1 = []
 		iteration = 10
 		itr = 0
 		beta = 0.85
 
-		for node in range(0, 281904):
-			page_rank_t.append(1/N)
+		for node in range(0, N+1):
+			if node == 0:
+				page_rank_t.append(0)
+			else:
+				page_rank_t.append(1./N)
 			page_rank_t1.append(0)
+
+		#print(page_rank_t)
 
 		adjacency_list_outgoing = MatrixHandler.load_adjacency_list_outgoing()
 		adjacency_list_incoming = MatrixHandler.load_adjacency_list_incoming()
@@ -41,15 +46,19 @@ class PageRank:
 			# print("iteration: ", str(itr))
 			# print(page_rank_t[1:1001])
 
-			for page in range(1, 281904):
+			for page in range(1, N+1):
 				pr_from_each_page = 0
 				page_rank_sum = 0
 				for linked_page in adjacency_list_incoming[str(page)]:
 					pr_from_each_page = page_rank_t[linked_page]/len(adjacency_list_outgoing[str(linked_page)])
 					page_rank_sum = page_rank_sum + beta*pr_from_each_page
+				page_rank_t1[page] = page_rank_sum
 
-				page_rank_t1[page] = page_rank_sum + (1-beta)/N
-
+			# avoids any leakage of rank
+			summation = round(sum(page_rank_t1),5)
+			for page in range(1, N+1):
+				page_rank_t1[page] += (1-summation)/N
+			
 			page_rank_t = page_rank_t1
 			itr = itr + 1
 
